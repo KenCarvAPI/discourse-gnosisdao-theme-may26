@@ -62,6 +62,19 @@ For Gnosis DAO forum only, go to /categories click on tools and then on "Reorder
 - Internall staff 7
 - Uncategorized 8
 
+### Fonts
+
+Lincensed fonts are manually uploaded.
+Ensure that you have the appropriate font files in either `.ttf`, `.otf`, or `.woff` format.
+
+**Upload the Fonts to Discourse:**
+
+ - Log in to your Discourse instance as an admin.
+ - Navigate to the **Admin** section by clicking on your avatar and selecting "Admin."
+ - Go to **Customize** > **Themes**. Choose the theme you wish to modify.
+ - Go to the **Uploads** section and upload your font files by **+ Add** button.
+
+
 
 ### Dark mode
 
