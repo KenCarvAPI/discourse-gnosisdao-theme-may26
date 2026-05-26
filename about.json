@@ -13,12 +13,12 @@
   },
   "color_schemes": {
     "gc-dark": {
-      "primary": "ECE6E8",
+      "primary": "F5EFE0",
       "secondary": "161219",
       "tertiary": "8CE8AB",
       "quaternary": "9994ED",
       "header_background": "0E0B12",
-      "header_primary": "ECE6E8",
+      "header_primary": "F5EFE0",
       "highlight": "2A2118",
       "danger": "E08272",
       "success": "8CE8AB",
