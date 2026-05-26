@@ -45,6 +45,10 @@
 // Belt-and-suspenders: explicitly pin description / muted-text colors in the
 // places that were rendering warm in your screenshots. These selectors win
 // over component CSS without needing to track which variable each uses.
+//
+// Includes the category-page banner subtitle (.category-title-description /
+// .category-heading .category-description) so the header description on
+// /c/general etc. matches the same neutral cream-grey used elsewhere.
 .category-list .category-description,
 .category-boxes .category-box .description,
 .category-boxes-with-topics .category-box .description,
@@ -52,7 +56,14 @@
 .subcategory-list .subcategory-box .description,
 .category-text-description,
 .cat-box-content .description,
-.category-list .category-name + p {
+.category-list .category-name + p,
+.category-title-description,
+.category-title-description .cooked,
+.category-title-description p,
+.category-heading .category-description,
+.category-heading .category-title-description,
+.category-title-contents .description,
+.category-title-header + .category-title-description {
   color: #b8b6b7 !important;
 }
 
