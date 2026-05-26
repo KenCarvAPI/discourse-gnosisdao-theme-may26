@@ -67,6 +67,37 @@
   color: #b8b6b7 !important;
 }
 
+// ---------- Category page banner subtitle (aggressive override) ----------
+// The subtitle under a category title on /c/[name] pages was still rendering
+// in lilac (--quaternary) despite the rules above. Use body-level specificity,
+// attribute selectors to catch any class-naming variant, and cascade the color
+// to ALL descendants so nested <p>, <span>, .cooked, etc. inherit it too.
+//
+// This block is intentionally heavy-handed because lighter selectors have
+// failed against whatever upstream rule is setting var(--quaternary) on the
+// banner description.
+body .category-heading .category-title-description,
+body .category-heading .category-title-description *,
+body .category-heading .category-description,
+body .category-heading .category-description *,
+body .category-title-description,
+body .category-title-description *,
+body .category-title-description .cooked,
+body .category-title-description .cooked *,
+body .category-title-description p,
+body .category-title-description span,
+body .category-title-contents .description,
+body .category-title-contents .description *,
+body section.category-heading p,
+body section.category-heading .description,
+body section.category-heading .description *,
+body [class*="category-title-description"],
+body [class*="category-title-description"] *,
+body [class*="category-title__description"],
+body [class*="category-title__description"] * {
+  color: #b8b6b7 !important;
+}
+
 // custom search banner customizations
 .custom-search-banner-wrap .search-menu .search-input {
   // OLD 
