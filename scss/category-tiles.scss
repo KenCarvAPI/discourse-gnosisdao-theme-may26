@@ -176,14 +176,20 @@
 
 // ---------- Hide duplicate bottom subcategory grid ----------
 // On subcategory pages, Discourse renders BOTH a compact top row of tiles
-// (from the category-group-boxes component / subcategory_list_style: boxes)
 // AND a card grid below with the same categories + descriptions. The bottom
 // grid duplicates the top row — hide it so users see only one navigation
 // surface per page.
-.subcategories-with-featured-topics,
-.subcategory-list-with-featured-topics,
-.category-list.with-topics.with-subcategories,
-.list-container .subcategories-with-featured-topics {
+//
+// IMPORTANT: This block must come AFTER any rule that sets `display: grid`
+// on the same selectors, otherwise the later grid rule wins the cascade.
+// The duplicate grid-styling block that previously followed this rule has
+// been deleted; do not re-introduce it.
+body .subcategories-with-featured-topics,
+body .subcategory-list-with-featured-topics,
+body .category-list.with-topics.with-subcategories,
+body .with-subcategories.list-container,
+body .list-container .subcategories-with-featured-topics,
+body .list-container .with-subcategories {
   display: none !important;
 }
 
@@ -228,207 +234,6 @@
     flex: 0 0 auto !important;
     min-height: 0 !important;
     margin: 0 !important;
-  }
-}
-
-// ---------- Original subcategory grid styles (now scoped) ----------
-// The styles below previously also targeted .subcategory-list / .with-subcategories
-// for the bottom grid layout. Since that grid is now hidden, these rules only
-// affect the .subcategories-with-featured-topics container (which is hidden)
-// and any legacy fallback. Kept for safety — they cost nothing when the parent
-// has display: none.
-
-.subcategories-with-featured-topics,
-.with-subcategories {
-  max-width: 1100px;
-  margin: 1.25rem auto 2.5rem !important;
-  display: grid !important;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 360px)) !important;
-  justify-content: center !important;
-  gap: 0.85rem !important;
-
-  // Cascade left-alignment through every descendant. Discourse and the
-  // category-boxes component sprinkle `text-align: center` on internal
-  // wrappers; this reset wins by virtue of being applied directly to the
-  // affected text nodes.
-  .category-box,
-  .subcategory-box {
-    text-align: left !important;
-
-    > *,
-    > * > *,
-    > * > * > * {
-      text-align: inherit;
-    }
-  }
-
-  .category-box,
-  .subcategory-box {
-    position: relative;
-    border-radius: 12px !important;
-    padding: 1rem 1.15rem !important;
-    background: rgba(var(--primary-rgb), 0.04) !important;
-    border: 1px solid rgba(var(--primary-rgb), 0.1) !important;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18) !important;
-    min-height: 0 !important;
-    overflow: hidden;
-    transition: background-color 0.15s ease, border-color 0.15s ease,
-      box-shadow 0.18s ease, transform 0.15s ease;
-
-    &:hover {
-      background: rgba(var(--primary-rgb), 0.07) !important;
-      border-color: rgba(var(--tertiary-rgb), 0.45) !important;
-      box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.4),
-        0 2px 6px -2px rgba(var(--tertiary-rgb), 0.18) !important;
-      transform: translateY(-2px);
-
-      .category-logo {
-        background: rgba(var(--tertiary-rgb), 0.14) !important;
-      }
-    }
-
-    // ---- Inner grid layout: icon column | content column ----
-    .category-box-inner,
-    .subcategory-box-inner {
-      display: grid !important;
-      grid-template-columns: 40px 1fr !important;
-      grid-template-rows: auto !important;
-      align-items: start !important;
-      column-gap: 0.85rem !important;
-      row-gap: 0 !important;
-      width: 100% !important;
-      flex-direction: row !important;
-    }
-
-    // ---- Icon container ----
-    .category-logo,
-    .logo {
-      grid-column: 1 !important;
-      grid-row: 1 !important;
-      width: 40px !important;
-      height: 40px !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      flex-shrink: 0;
-      background: rgba(var(--primary-rgb), 0.08) !important;
-      border-radius: 9px !important;
-      display: inline-flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      opacity: 1 !important;
-      transition: background-color 0.15s ease;
-
-      .d-icon,
-      svg {
-        opacity: 1 !important;
-        color: var(--primary) !important;
-        fill: currentColor !important;
-        width: 20px !important;
-        height: 20px !important;
-      }
-
-      img {
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover !important;
-        border-radius: 9px !important;
-        opacity: 1 !important;
-      }
-    }
-
-    // ---- Content column (heading + description) ----
-    // Discourse wraps text in either `.category-details` or directly under
-    // `.category-box-inner`; we target both and force them into column 2.
-    .category-details,
-    .category-box-heading,
-    > .category-box-inner > h3,
-    > .category-box-inner > .description {
-      grid-column: 2 !important;
-      align-self: center;
-      min-width: 0;
-    }
-
-    .category-details {
-      display: flex !important;
-      flex-direction: column !important;
-      gap: 0.25rem !important;
-      justify-content: center;
-    }
-
-    // ---- Heading ----
-    .category-box-heading,
-    h3 {
-      margin: 0 !important;
-      padding: 0 !important;
-      text-align: left !important;
-      font-size: 0.95rem !important;
-      font-weight: 650 !important;
-      line-height: 1.3 !important;
-      letter-spacing: -0.005em;
-
-      a,
-      a.parent-box-link,
-      a.parent-box-link h3,
-      .badge-category__name {
-        text-align: left !important;
-        font-size: inherit !important;
-        font-weight: inherit !important;
-        line-height: inherit !important;
-        margin: 0 !important;
-        color: var(--primary) !important;
-        text-decoration: none;
-      }
-
-      // Hide the colored ■ swatch in the title — the icon already provides
-      // visual identity, two color blocks side-by-side looks amateurish.
-      .badge-category__bg,
-      .badge-wrapper .badge-category__bg,
-      .badge-wrapper > span:not(.badge-category__name):not(.clear-badge) {
-        display: none !important;
-      }
-    }
-
-    // ---- Description ----
-    .description {
-      text-align: left !important;
-      font-size: 0.8rem !important;
-      line-height: 1.45 !important;
-      margin: 0.15rem 0 0 !important;
-      padding: 0 !important;
-      color: #b8b6b7 !important;
-      display: -webkit-box !important;
-      -webkit-line-clamp: 2 !important;
-      -webkit-box-orient: vertical !important;
-      overflow: hidden !important;
-    }
-
-    // ---- Suppress the empty featured-topics divider ----
-    // When a subcategory has no featured topics, Discourse still renders an
-    // empty `<ul.featured-topics>` whose border-top draws a stray line at
-    // the bottom of the card. Hide it when empty.
-    .featured-topics:empty,
-    ul.featured-topics:empty {
-      display: none !important;
-      border: none !important;
-    }
-
-    // Featured topics WITH content: tight inline list below the description
-    .featured-topics:not(:empty) {
-      grid-column: 2 !important;
-      margin-top: 0.7rem !important;
-      padding-top: 0.6rem !important;
-      border-top: 1px solid rgba(var(--primary-rgb), 0.08) !important;
-
-      li {
-        font-size: 0.78rem !important;
-        line-height: 1.5 !important;
-        padding: 0.1rem 0 !important;
-      }
-
-      a.title {
-        color: var(--primary) !important;
-      }
-    }
   }
 }
 
@@ -587,25 +392,19 @@
 
 @media (max-width: 700px) {
   .category-boxes,
-  .category-boxes-with-topics,
-  .subcategories-with-featured-topics,
-  .subcategory-list,
-  .with-subcategories {
+  .category-boxes-with-topics {
     grid-template-columns: 1fr !important;
     gap: 0.65rem !important;
     margin: 1rem 0.5rem 1.75rem !important;
 
-    .category-box,
-    .subcategory-box {
+    .category-box {
       padding: 0.9rem 1rem !important;
       max-width: 100%;
     }
   }
 
   .category-boxes .category-box .category-logo,
-  .category-boxes-with-topics .category-box .category-logo,
-  .subcategories-with-featured-topics .category-box .category-logo,
-  .subcategory-list .subcategory-box .category-logo {
+  .category-boxes-with-topics .category-box .category-logo {
     width: 38px !important;
     height: 38px !important;
   }
