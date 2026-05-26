@@ -6,97 +6,158 @@
 // "discourse default with rounded corners."
 
 // ----- Grid container -----
+// Landing-page category grid. Same design language as the subcategory grid:
+// capped card width, icon-left content-right, quiet shadow, hover elevation.
 .category-boxes,
 .category-boxes-with-topics {
   max-width: 1100px;
-  margin: 1.25rem auto 3rem;
-  gap: 1rem;
+  margin: 1.25rem auto 2.5rem !important;
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 380px)) !important;
+  justify-content: center !important;
+  gap: 0.9rem !important;
   padding: 0 0.25rem;
+}
+
+// Cascade left-alignment through every descendant of a card
+.category-boxes .category-box,
+.category-boxes-with-topics .category-box {
+  text-align: left !important;
+
+  > *,
+  > * > *,
+  > * > * > * {
+    text-align: inherit;
+  }
 }
 
 // ----- Card -----
 .category-boxes .category-box,
 .category-boxes-with-topics .category-box {
   position: relative;
-  border-radius: 14px !important;
-  padding: 1.4rem 1.5rem !important;
-  background: rgba(var(--primary-rgb), 0.035) !important;
-  border: 1px solid rgba(var(--primary-rgb), 0.09) !important;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.02) inset,
-    0 1px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 12px !important;
+  padding: 1.1rem 1.25rem !important;
+  background: rgba(var(--primary-rgb), 0.04) !important;
+  border: 1px solid rgba(var(--primary-rgb), 0.1) !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18) !important;
+  min-height: 0 !important;
   overflow: hidden;
-  transition: background-color 0.18s ease, border-color 0.18s ease,
-    box-shadow 0.18s ease, transform 0.18s ease;
+  transition: background-color 0.15s ease, border-color 0.15s ease,
+    box-shadow 0.18s ease, transform 0.15s ease;
 
   &:hover {
-    background: rgba(var(--primary-rgb), 0.06) !important;
+    background: rgba(var(--primary-rgb), 0.07) !important;
     border-color: rgba(var(--tertiary-rgb), 0.45) !important;
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset,
-      0 12px 28px -8px rgba(0, 0, 0, 0.45),
-      0 4px 10px -4px rgba(var(--tertiary-rgb), 0.18);
+    box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.4),
+      0 2px 6px -2px rgba(var(--tertiary-rgb), 0.18) !important;
     transform: translateY(-2px);
 
     .category-logo {
-      transform: scale(1.04);
+      background: rgba(var(--tertiary-rgb), 0.14) !important;
     }
   }
 
   .category-box-inner {
-    display: flex;
-    align-items: flex-start;
-    column-gap: 1.1rem !important;
+    display: grid !important;
+    grid-template-columns: 44px 1fr !important;
+    align-items: start !important;
+    column-gap: 0.95rem !important;
+    row-gap: 0 !important;
+    width: 100% !important;
   }
 
-  // Icon container — kept small and rounded; the colored "block" from default
-  // Discourse is replaced with a refined, contained square. The category's
-  // own background color (set in Admin) still shows, just at a reduced footprint.
+  // Icon container
   .category-logo,
   .logo {
-    background: transparent !important;
-    border-radius: 10px;
-    overflow: hidden;
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    width: 44px !important;
+    height: 44px !important;
+    margin: 0 !important;
     flex-shrink: 0;
-    width: 44px;
-    height: 44px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s ease;
+    background: rgba(var(--primary-rgb), 0.08) !important;
+    border-radius: 10px !important;
+    overflow: hidden;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    opacity: 1 !important;
+    transition: background-color 0.15s ease, transform 0.2s ease;
+
+    .d-icon,
+    svg {
+      opacity: 1 !important;
+      color: var(--primary) !important;
+      fill: currentColor !important;
+      width: 22px !important;
+      height: 22px !important;
+    }
 
     img,
     .category-logo-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 10px;
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      border-radius: 10px !important;
+      opacity: 1 !important;
       display: block;
     }
   }
 
-  // Heading
-  .category-box-heading {
-    margin-bottom: 0.35rem;
+  // Content column anchor
+  .category-details,
+  .category-box-heading,
+  > .category-box-inner > h3,
+  > .category-box-inner > .description {
+    grid-column: 2 !important;
+    min-width: 0;
+  }
 
-    a.parent-box-link h3 {
-      font-size: 1rem;
-      font-weight: 650;
-      letter-spacing: -0.005em;
-      line-height: 1.3;
-      margin: 0;
-      color: var(--primary);
+  .category-details {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.25rem !important;
+    justify-content: center;
+  }
+
+  // Heading
+  .category-box-heading,
+  h3 {
+    margin: 0 !important;
+    text-align: left !important;
+    font-size: 1rem !important;
+    font-weight: 650 !important;
+    letter-spacing: -0.005em;
+    line-height: 1.3 !important;
+
+    a,
+    a.parent-box-link,
+    a.parent-box-link h3,
+    .badge-category__name {
+      font-size: inherit !important;
+      font-weight: inherit !important;
+      line-height: inherit !important;
+      margin: 0 !important;
+      color: var(--primary) !important;
+      text-decoration: none;
+    }
+
+    .badge-category__bg,
+    .badge-wrapper .badge-category__bg {
+      display: none !important;
     }
   }
 
-  // Description — locked to a neutral cream-grey so it can never read amber.
+  // Description
   .description {
-    font-size: 0.86rem;
-    line-height: 1.5;
-    margin: 0;
+    font-size: 0.83rem !important;
+    line-height: 1.5 !important;
+    margin: 0.2rem 0 0 !important;
     color: #b8b6b7 !important;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
   }
 
   .d-icon-lock {
@@ -104,112 +165,220 @@
     margin-right: 0.3em;
     font-size: 0.85em;
   }
+
+  // Suppress empty featured-topics divider
+  .featured-topics:empty,
+  ul.featured-topics:empty {
+    display: none !important;
+    border: none !important;
+  }
 }
 
 // ---------- Subcategory contexts ----------
-// When drilling into a parent (/c/general, /c/governance), Discourse renders
-// the subcategory grid with center-aligned content by default — which creates
-// huge empty space inside each card. Override to a compact, left-aligned
-// row layout that matches the elevated landing-page cards but stays tight.
+// Drilling into a parent (/c/general, /c/governance) used to render oversized
+// cards with mis-aligned content because Discourse's default subcategory_box
+// markup nests text inside a `.category-details` block that has its own
+// `text-align: center` and the icon sits in a parallel flex column.
+//
+// Redesign as a proper product-grade card grid:
+// - Capped 280–360px card width so cards don't stretch to fill containers
+// - CSS grid (icon column | content column) with hard left-alignment override
+// - Refined icon container, no dim opacity, primary-tinted background
+// - Hidden colored badge swatch that competed visually with the icon
+// - No empty `.featured-topics` divider line
+// - Quiet shadow + hover elevation that feels intentional, not heavy
 
 .subcategories-with-featured-topics,
 .subcategory-list,
 .with-subcategories {
   max-width: 1100px;
-  margin: 1rem auto 2rem;
-  gap: 0.75rem !important;
+  margin: 1.25rem auto 2.5rem !important;
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 360px)) !important;
+  justify-content: center !important;
+  gap: 0.85rem !important;
+
+  // Cascade left-alignment through every descendant. Discourse and the
+  // category-boxes component sprinkle `text-align: center` on internal
+  // wrappers; this reset wins by virtue of being applied directly to the
+  // affected text nodes.
+  .category-box,
+  .subcategory-box {
+    text-align: left !important;
+
+    > *,
+    > * > *,
+    > * > * > * {
+      text-align: inherit;
+    }
+  }
 
   .category-box,
   .subcategory-box {
+    position: relative;
     border-radius: 12px !important;
-    padding: 0.95rem 1.1rem !important;
-    background: rgba(var(--primary-rgb), 0.035) !important;
-    border: 1px solid rgba(var(--primary-rgb), 0.08) !important;
-    box-shadow: none !important;
+    padding: 1rem 1.15rem !important;
+    background: rgba(var(--primary-rgb), 0.04) !important;
+    border: 1px solid rgba(var(--primary-rgb), 0.1) !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18) !important;
     min-height: 0 !important;
+    overflow: hidden;
     transition: background-color 0.15s ease, border-color 0.15s ease,
-      transform 0.15s ease;
+      box-shadow 0.18s ease, transform 0.15s ease;
 
     &:hover {
-      background: rgba(var(--primary-rgb), 0.055) !important;
-      border-color: rgba(var(--tertiary-rgb), 0.35) !important;
-      transform: translateY(-1px);
+      background: rgba(var(--primary-rgb), 0.07) !important;
+      border-color: rgba(var(--tertiary-rgb), 0.45) !important;
+      box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.4),
+        0 2px 6px -2px rgba(var(--tertiary-rgb), 0.18) !important;
+      transform: translateY(-2px);
+
+      .category-logo {
+        background: rgba(var(--tertiary-rgb), 0.14) !important;
+      }
     }
 
-    // Force the inner layout to a tight left-aligned row regardless of
-    // Discourse's default centering/stacking for subcategory boxes.
+    // ---- Inner grid layout: icon column | content column ----
     .category-box-inner,
     .subcategory-box-inner {
-      display: flex !important;
-      flex-direction: row !important;
-      align-items: flex-start !important;
-      text-align: left !important;
+      display: grid !important;
+      grid-template-columns: 40px 1fr !important;
+      grid-template-rows: auto !important;
+      align-items: start !important;
       column-gap: 0.85rem !important;
       row-gap: 0 !important;
-      width: 100%;
+      width: 100% !important;
+      flex-direction: row !important;
     }
 
-    // Icon container — smaller and crisper. Override any inherited opacity
-    // dimming so the SVG/icon glyph is fully visible.
+    // ---- Icon container ----
     .category-logo,
     .logo {
-      width: 36px !important;
-      height: 36px !important;
+      grid-column: 1 !important;
+      grid-row: 1 !important;
+      width: 40px !important;
+      height: 40px !important;
+      margin: 0 !important;
+      padding: 0 !important;
       flex-shrink: 0;
-      background: rgba(var(--primary-rgb), 0.06) !important;
-      border-radius: 8px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+      background: rgba(var(--primary-rgb), 0.08) !important;
+      border-radius: 9px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
       opacity: 1 !important;
+      transition: background-color 0.15s ease;
 
       .d-icon,
       svg {
         opacity: 1 !important;
         color: var(--primary) !important;
         fill: currentColor !important;
-        width: 18px;
-        height: 18px;
+        width: 20px !important;
+        height: 20px !important;
       }
 
       img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 8px;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        border-radius: 9px !important;
+        opacity: 1 !important;
       }
     }
 
-    .category-box-heading {
-      margin: 0 0 0.2rem !important;
+    // ---- Content column (heading + description) ----
+    // Discourse wraps text in either `.category-details` or directly under
+    // `.category-box-inner`; we target both and force them into column 2.
+    .category-details,
+    .category-box-heading,
+    > .category-box-inner > h3,
+    > .category-box-inner > .description {
+      grid-column: 2 !important;
+      align-self: center;
+      min-width: 0;
+    }
+
+    .category-details {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 0.25rem !important;
+      justify-content: center;
+    }
+
+    // ---- Heading ----
+    .category-box-heading,
+    h3 {
+      margin: 0 !important;
+      padding: 0 !important;
       text-align: left !important;
+      font-size: 0.95rem !important;
+      font-weight: 650 !important;
+      line-height: 1.3 !important;
+      letter-spacing: -0.005em;
 
       a,
       a.parent-box-link,
-      h3 {
+      a.parent-box-link h3,
+      .badge-category__name {
         text-align: left !important;
-        font-size: 0.95rem !important;
-        font-weight: 650 !important;
-        line-height: 1.3 !important;
+        font-size: inherit !important;
+        font-weight: inherit !important;
+        line-height: inherit !important;
         margin: 0 !important;
         color: var(--primary) !important;
+        text-decoration: none;
       }
 
-      // Hide the redundant colored swatch in the heading — the icon container
-      // already conveys category identity.
+      // Hide the colored ■ swatch in the title — the icon already provides
+      // visual identity, two color blocks side-by-side looks amateurish.
       .badge-category__bg,
-      .badge-wrapper .badge-category__bg {
+      .badge-wrapper .badge-category__bg,
+      .badge-wrapper > span:not(.badge-category__name):not(.clear-badge) {
         display: none !important;
       }
     }
 
+    // ---- Description ----
     .description {
       text-align: left !important;
       font-size: 0.8rem !important;
       line-height: 1.45 !important;
-      margin: 0 !important;
+      margin: 0.15rem 0 0 !important;
+      padding: 0 !important;
       color: #b8b6b7 !important;
-      -webkit-line-clamp: 3 !important;
+      display: -webkit-box !important;
+      -webkit-line-clamp: 2 !important;
+      -webkit-box-orient: vertical !important;
+      overflow: hidden !important;
+    }
+
+    // ---- Suppress the empty featured-topics divider ----
+    // When a subcategory has no featured topics, Discourse still renders an
+    // empty `<ul.featured-topics>` whose border-top draws a stray line at
+    // the bottom of the card. Hide it when empty.
+    .featured-topics:empty,
+    ul.featured-topics:empty {
+      display: none !important;
+      border: none !important;
+    }
+
+    // Featured topics WITH content: tight inline list below the description
+    .featured-topics:not(:empty) {
+      grid-column: 2 !important;
+      margin-top: 0.7rem !important;
+      padding-top: 0.6rem !important;
+      border-top: 1px solid rgba(var(--primary-rgb), 0.08) !important;
+
+      li {
+        font-size: 0.78rem !important;
+        line-height: 1.5 !important;
+        padding: 0.1rem 0 !important;
+      }
+
+      a.title {
+        color: var(--primary) !important;
+      }
     }
   }
 }
@@ -336,27 +505,30 @@
   }
 }
 
-// ---------- Featured topics inside a category card ----------
-// Tighten typography so they don't crowd the increased card padding.
+// ---------- Featured topics inside a landing-page card ----------
+// When featured topics ARE present (e.g. category-boxes-with-topics layout),
+// render them as a tight inline list under the description with a hairline
+// divider. Empty containers are already hidden by `:empty` in the main block.
 
 .category-boxes-with-topics .category-box {
-  .featured-topics {
-    margin-top: 0.9rem;
-    padding-top: 0.85rem;
-    border-top: 1px solid rgba(var(--primary-rgb), 0.08);
+  .featured-topics:not(:empty) {
+    grid-column: 2 !important;
+    margin-top: 0.7rem !important;
+    padding-top: 0.6rem !important;
+    border-top: 1px solid rgba(var(--primary-rgb), 0.08) !important;
 
     li {
-      font-size: 0.86rem;
-      line-height: 1.55;
-      padding: 0.2rem 0;
+      font-size: 0.8rem !important;
+      line-height: 1.5 !important;
+      padding: 0.12rem 0 !important;
     }
 
     a.title {
-      color: var(--primary);
+      color: var(--primary) !important;
       transition: color 0.15s ease;
 
       &:hover {
-        color: var(--tertiary);
+        color: var(--tertiary) !important;
       }
     }
   }
@@ -364,23 +536,28 @@
 
 // ---------- Responsive ----------
 
-@media (max-width: 800px) {
+@media (max-width: 700px) {
   .category-boxes,
   .category-boxes-with-topics,
   .subcategories-with-featured-topics,
-  .subcategory-list {
-    gap: 0.75rem;
-    margin: 1rem 0.5rem 2rem;
+  .subcategory-list,
+  .with-subcategories {
+    grid-template-columns: 1fr !important;
+    gap: 0.65rem !important;
+    margin: 1rem 0.5rem 1.75rem !important;
 
     .category-box,
     .subcategory-box {
-      padding: 1.1rem 1.15rem !important;
+      padding: 0.9rem 1rem !important;
+      max-width: 100%;
     }
   }
 
   .category-boxes .category-box .category-logo,
-  .category-boxes-with-topics .category-box .category-logo {
-    width: 40px;
-    height: 40px;
+  .category-boxes-with-topics .category-box .category-logo,
+  .subcategories-with-featured-topics .category-box .category-logo,
+  .subcategory-list .subcategory-box .category-logo {
+    width: 38px !important;
+    height: 38px !important;
   }
 }
