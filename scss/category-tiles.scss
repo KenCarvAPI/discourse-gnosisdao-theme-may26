@@ -174,22 +174,71 @@
   }
 }
 
-// ---------- Subcategory contexts ----------
-// Drilling into a parent (/c/general, /c/governance) used to render oversized
-// cards with mis-aligned content because Discourse's default subcategory_box
-// markup nests text inside a `.category-details` block that has its own
-// `text-align: center` and the icon sits in a parallel flex column.
-//
-// Redesign as a proper product-grade card grid:
-// - Capped 280–360px card width so cards don't stretch to fill containers
-// - CSS grid (icon column | content column) with hard left-alignment override
-// - Refined icon container, no dim opacity, primary-tinted background
-// - Hidden colored badge swatch that competed visually with the icon
-// - No empty `.featured-topics` divider line
-// - Quiet shadow + hover elevation that feels intentional, not heavy
+// ---------- Hide duplicate bottom subcategory grid ----------
+// On subcategory pages, Discourse renders BOTH a compact top row of tiles
+// (from the category-group-boxes component / subcategory_list_style: boxes)
+// AND a card grid below with the same categories + descriptions. The bottom
+// grid duplicates the top row — hide it so users see only one navigation
+// surface per page.
+.subcategories-with-featured-topics,
+.subcategory-list-with-featured-topics,
+.category-list.with-topics.with-subcategories,
+.list-container .subcategories-with-featured-topics {
+  display: none !important;
+}
+
+// ---------- Top compact subcategory row ----------
+// The remaining row of subcategory tiles at the top of a parent category page.
+// Force single-row layout, allow graceful horizontal scroll on narrow screens,
+// and tighten the vertical margins so it sits close to the page header.
+
+.parent-category-row,
+.subcategory-list:not(.subcategory-list-with-featured-topics),
+.discovery-list-container-top + .subcategory-list,
+.category-list-item.category.has-children > .subcategories,
+[class*="category-group-boxes"],
+[class*="category-group-box-row"] {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 0.5rem !important;
+  margin: 0.5rem auto 1rem !important;
+  padding: 0.25rem 0 !important;
+  max-width: 1100px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+
+  // Hide native scrollbar visually but keep scroll behavior
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(var(--primary-rgb), 0.15);
+    border-radius: 2px;
+  }
+
+  // Each tile in the top row — keep compact, prevent flex-shrink so they
+  // stay readable when the row overflows horizontally.
+  > .category-box,
+  > .subcategory-box,
+  > .category-group-box,
+  > [class*="category-group-box"]:not([class*="row"]),
+  > a,
+  > div {
+    flex: 0 0 auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+  }
+}
+
+// ---------- Original subcategory grid styles (now scoped) ----------
+// The styles below previously also targeted .subcategory-list / .with-subcategories
+// for the bottom grid layout. Since that grid is now hidden, these rules only
+// affect the .subcategories-with-featured-topics container (which is hidden)
+// and any legacy fallback. Kept for safety — they cost nothing when the parent
+// has display: none.
 
 .subcategories-with-featured-topics,
-.subcategory-list,
 .with-subcategories {
   max-width: 1100px;
   margin: 1.25rem auto 2.5rem !important;
