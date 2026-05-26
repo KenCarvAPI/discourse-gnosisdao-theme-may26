@@ -175,40 +175,15 @@
 }
 
 // ---------- Hide duplicate bottom subcategory grid ----------
-// Discourse renders TWO sets of subcategory navigation on every category page:
-//   1. Top: compact tiles (category-group-boxes plugin / subcategory_list_style: boxes)
-//   2. Bottom: card grid with descriptions (this is what we want to kill)
-//
-// The bottom grid almost certainly uses .category-boxes-with-topics (the same
-// class as the landing-page grid). My earlier hide rule missed it; my landing-
-// page styling was ALSO keeping it visible. The fix needs three things:
-//   a) Body-class scoping so the landing page grid still shows
-//   b) Every plausible container class hidden
-//   c) Specificity that beats the rules at the top of this file
-//
-// Body classes Discourse adds:
-//   - body.categories-list         → the /categories landing page (KEEP grid)
-//   - body.navigation-categories   → categories landing page (KEEP grid)
-//   - body.category                → a category page like /c/general (HIDE grid)
-//   - body[class*="category-"]     → /c/{slug} pages (HIDE grid)
-
-body.category:not(.categories-list):not(.navigation-categories),
-body[class*="category-"]:not(.categories-list):not(.navigation-categories) {
-  // Every plausible container for the bottom subcategory grid.
-  .subcategories-with-featured-topics,
-  .subcategory-list-with-featured-topics,
-  .with-subcategories,
-  .subcategory-list,
-  .parent-category-row,
-  .category-boxes-with-topics,
-  .category-boxes,
-  table.category-list.with-topics,
-  ol.category-list.subcategory,
-  // Generic attribute catch-all for any class with "subcategor" + "featured"
-  [class*="subcategor"][class*="featured"],
-  [class*="subcategory-list-"][class*="topic"] {
-    display: none !important;
-  }
+// Confirmed via DevTools: the bottom grid on /c/{slug} pages is rendered as
+//   <section class="category-boxes with-logos ember-view">
+// The `.with-logos` modifier class is the differentiator — the landing-page
+// category grid uses `.category-boxes` WITHOUT `.with-logos`. Targeting the
+// combined selector hides the subcategory duplicate without affecting the
+// landing page, no body-class scoping required.
+section.category-boxes.with-logos,
+.category-boxes.with-logos {
+  display: none !important;
 }
 
 // ---------- Top compact subcategory row ----------
