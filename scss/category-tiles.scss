@@ -175,22 +175,40 @@
 }
 
 // ---------- Hide duplicate bottom subcategory grid ----------
-// On subcategory pages, Discourse renders BOTH a compact top row of tiles
-// AND a card grid below with the same categories + descriptions. The bottom
-// grid duplicates the top row — hide it so users see only one navigation
-// surface per page.
+// Discourse renders TWO sets of subcategory navigation on every category page:
+//   1. Top: compact tiles (category-group-boxes plugin / subcategory_list_style: boxes)
+//   2. Bottom: card grid with descriptions (this is what we want to kill)
 //
-// IMPORTANT: This block must come AFTER any rule that sets `display: grid`
-// on the same selectors, otherwise the later grid rule wins the cascade.
-// The duplicate grid-styling block that previously followed this rule has
-// been deleted; do not re-introduce it.
-body .subcategories-with-featured-topics,
-body .subcategory-list-with-featured-topics,
-body .category-list.with-topics.with-subcategories,
-body .with-subcategories.list-container,
-body .list-container .subcategories-with-featured-topics,
-body .list-container .with-subcategories {
-  display: none !important;
+// The bottom grid almost certainly uses .category-boxes-with-topics (the same
+// class as the landing-page grid). My earlier hide rule missed it; my landing-
+// page styling was ALSO keeping it visible. The fix needs three things:
+//   a) Body-class scoping so the landing page grid still shows
+//   b) Every plausible container class hidden
+//   c) Specificity that beats the rules at the top of this file
+//
+// Body classes Discourse adds:
+//   - body.categories-list         → the /categories landing page (KEEP grid)
+//   - body.navigation-categories   → categories landing page (KEEP grid)
+//   - body.category                → a category page like /c/general (HIDE grid)
+//   - body[class*="category-"]     → /c/{slug} pages (HIDE grid)
+
+body.category:not(.categories-list):not(.navigation-categories),
+body[class*="category-"]:not(.categories-list):not(.navigation-categories) {
+  // Every plausible container for the bottom subcategory grid.
+  .subcategories-with-featured-topics,
+  .subcategory-list-with-featured-topics,
+  .with-subcategories,
+  .subcategory-list,
+  .parent-category-row,
+  .category-boxes-with-topics,
+  .category-boxes,
+  table.category-list.with-topics,
+  ol.category-list.subcategory,
+  // Generic attribute catch-all for any class with "subcategor" + "featured"
+  [class*="subcategor"][class*="featured"],
+  [class*="subcategory-list-"][class*="topic"] {
+    display: none !important;
+  }
 }
 
 // ---------- Top compact subcategory row ----------
