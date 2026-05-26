@@ -22,6 +22,19 @@
   border-radius: 0;
 }
 
+// Discourse wraps the connector in an outer <span> that ALSO carries the
+// .community-utility-bar class. The inner <div> from our HBS is a flex
+// child of that wrapper, and `margin: auto` on a flex item overrides
+// `justify-content: flex-start` and centers the child — which is why
+// the chips kept appearing centered. Force the inner div to span the
+// full width of the outer wrapper with zero horizontal margin so the
+// chips left-align to the actual content edge.
+.discovery-list-container-top-outlet > .community-utility-bar {
+  width: 100%;
+  margin: 0;
+  max-width: none;
+}
+
 .community-utility-link {
   display: inline-flex;
   align-items: center;
