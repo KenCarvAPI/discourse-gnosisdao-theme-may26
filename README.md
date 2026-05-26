@@ -1,18 +1,18 @@
-# Gnosis Chain Discourse Theme
+# May_2026_update Discourse Theme
 
-Custom theme used in the [GnosisDAO Forum](https://forum.gnosis.io/).
+Dark-brand refresh of the [GnosisDAO Forum](https://forum.gnosis.io/) theme. Installed as a separate theme alongside the existing `Gnosis Chain` theme so admins can switch or A/B them without disturbing the original.
 
 ## Installation
 
-Installing the package is quite simple, first of all create a tar.gc package containing the project:
+Create a tar.gz package of the project (run from the parent directory):
 
 ```
-tar --exclude .DS_Store --exclude .github --exclude .git --exclude old_versions -zcvf gc.tar.gz discourse-gnosischain-theme
+tar --exclude .DS_Store --exclude .github --exclude .git --exclude old_versions -zcvf may-2026-update.tar.gz discourse-may-2026-update
 ```
 
-In your administration panel, go to `Customize > Theme > Install`, choose the package and click on install.
+In your Discourse administration panel, go to `Customize > Theme > Install`, choose the package and click install. Because the `name` in `about.json` (`May_2026_update`) differs from the existing `Gnosis Chain` theme, Discourse will create a **new** theme record instead of overwriting the existing one.
 
-You can then choose to enable the theme by default for all users or let them choose which one to use.
+You can then enable it as default, set it as the dark-mode color scheme, or let users opt in.
 
 ## Components
 
@@ -64,7 +64,7 @@ For Gnosis DAO forum only, go to /categories click on tools and then on "Reorder
 
 ### Fonts
 
-Lincensed fonts are manually uploaded.
+Licensed fonts are manually uploaded.
 Ensure that you have the appropriate font files in either `.ttf`, `.otf`, or `.woff` format.
 
 **Upload the Fonts to Discourse:**

@@ -11,8 +11,7 @@
   
   .display-search-banner {
     #main-outlet {
-      // Deattach the colour from variable
-      background: #1C352A;
+      background: var(--secondary);
     }
   }
 
@@ -92,8 +91,7 @@
 .display-search-banner {
   #main-outlet {
     padding-top: 2em;
-    // Override the default value
-    background: #1C352A;
+    background: var(--secondary);
   }
 }
 
@@ -138,19 +136,9 @@ background-color: transparent !important;
 .above-main-container-outlet.search-banner {
   .custom-search-banner-wrap {
     padding: 1em 0 2em;
-    //// ------- CUSTOM -------
-    //// OLD:
-    // color: var(--tertiary);
-    //// NEW:
     color: var(--primary);
-    //// ----------------------
     .mobile-view & {
-      //// ------- CUSTOM -------
-      //// OLD:
-      // color: var(--secondary);
-      //// NEW:
       color: var(--primary);
-      //// ----------------------
     }
     h1 {
       font-size: 3em;
@@ -161,10 +149,9 @@ background-color: transparent !important;
       margin-top: 2em;
     }
     p {
-      //OLD color: var(--primary);
       color: var(--primary-high);
       }
-    
+
   }
 }
 
@@ -350,17 +337,7 @@ div.ac-wrap {
 
 html {
   body:not(.no-ember) {
-    //// ------- CUSTOM -------
-    //// OLD:
-    // background: linear-gradient(
-    //     0deg,
-    //     rgba(var(--primary-rgb), 0.075) 0%,
-    //     rgba(var(--primary-rgb), 0.075) 100%
-    //   ),
-    //   linear-gradient(0deg, var(--secondary) 100%, var(--secondary) 100%);
-    //// NEW:
-    background: var(--tertiary);
-    //// ----------------------
+    background: var(--secondary);
   }
   .background-container {
     position: fixed;
@@ -368,17 +345,7 @@ html {
     left: 0;
     height: 100vh;
     width: 100vw;
-    //// ------- CUSTOM -------
-    //// OLD:
-    // background: linear-gradient(
-    //   90deg,
-    //   var(--tertiary-hover) 0%,
-    //   var(--tertiary) 100%
-    // );
-    // clip-path: ellipse(148% 70% at 91% -14%);
-    //// NEW:
-    background: var(--tertiary);
-    //// ----------------------
+    background: var(--secondary);
   }
   body.no-ember .background-container {
     display: none;
@@ -393,9 +360,7 @@ h1, h2, h3, h4, h5, h6 {
 html body #main-outlet {
   margin-top: 30px;
   margin-bottom: 50px;
-  // background: var(--secondary);
-  // Deattach the background colour from variables
-  background: #1e1e1e;
+  background: var(--secondary);
   border-radius: 1em;
   padding: 3em 3em 5%;
   max-width: 1150px;
@@ -499,7 +464,7 @@ html body #main-outlet {
           opacity: 0.75;
         }
         &:hover {
-          border: 1px solid rgba(var(--primary-rgb), 0.25);
+          border: 1px solid var(--tertiary);
           .discourse-tag {
             opacity: 1;
           }
@@ -508,7 +473,7 @@ html body #main-outlet {
       &:hover {
         background-color: var(--secondary);
         box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
-        border: 1px solid rgba(var(--primary-rgb), 0.3);
+        border: 1px solid var(--tertiary);
         a.title:not(.badge-notification),
         a.topic-excerpt {
           color: var(--primary) !important;

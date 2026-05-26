@@ -7,7 +7,7 @@ export default {
   initialize() {
     withPluginApi("0.8.14", (api) => {
       api.modifyClass("component:edit-category-general", {
-        pluginId: "discourse-air",
+        pluginId: "May_2026_update",
 
         didInsertElement() {
           this._super(...arguments);

@@ -1,8 +1,8 @@
 {
-  "name": "Gnosis Chain",
+  "name": "May_2026_update",
   "component": false,
-  "about_url": "https://github.com/gnosischain/discourse-gnosischain-theme",
-  "license_url": "https://github.com/gnosischain/discourse-gnosischain-theme/blob/main/LICENSE.md",
+  "about_url": "https://github.com/KenCarvAPI/discourse-gnosisdao-theme-may26",
+  "license_url": "https://github.com/KenCarvAPI/discourse-gnosisdao-theme-may26/blob/main/LICENSE.md",
   "components": [
     "https://github.com/jordanvidrine/discourse-category-group-boxes.git",
     "https://github.com/discourse/discourse-clickable-topic.git",
@@ -12,18 +12,17 @@
     "serialize_topic_excerpts": true
   },
   "color_schemes": {
-    "gc-light": {
-      "primary": "FaFaFa",
-      "secondary": "133629",
-      "tertiary": "355f4e",
-      "quaternary": "349773",
-      "header_background": "0D251C",
-      "header_primary": "EEF4F7",
-      "highlight": "6ac8a6",
-      "danger": "AC2C3B",
-      "danger-medium": "FF8061",
-      "success": "00B460",
-      "love": "FF5F72"
+    "gc-dark": {
+      "primary": "ECE6E8",
+      "secondary": "161219",
+      "tertiary": "8CE8AB",
+      "quaternary": "9994ED",
+      "header_background": "0E0B12",
+      "header_primary": "ECE6E8",
+      "highlight": "2A2118",
+      "danger": "E08272",
+      "success": "8CE8AB",
+      "love": "F08A9E"
     }
   },
   "learn_more": "https://meta.discourse.org/t/beginners-guide-to-using-discourse-themes/91966"
