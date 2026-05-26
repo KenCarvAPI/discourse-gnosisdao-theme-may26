@@ -1,3 +1,61 @@
+// ---------- Secondary text neutrality override ----------
+// Discourse derives the full primary scale (--primary-very-low through
+// --primary-very-high, plus the numeric --primary-200..--primary-900 scale)
+// by blending --primary toward --secondary using a chroma-preserving algorithm.
+// Any subtle warmth in --primary (or in adjacent palette colors like love /
+// danger / highlight) gets amplified in those midtones — which is what was
+// rendering descriptions, timestamps, and metadata as amber/gold.
+//
+// Pinning every derivative to a true neutral grey scale prevents any hue cast,
+// regardless of how Discourse interpolates them.
+:root,
+.d-header-wrap,
+#main-outlet {
+  --primary-very-low: #1d1b1e !important;
+  --primary-low: #2a282a !important;
+  --primary-low-mid: #4a4849 !important;
+  --primary-medium: #9a9899 !important;
+  --primary-medium-high: #b8b6b7 !important;
+  --primary-high: #d2d0d1 !important;
+  --primary-very-high: #ecebec !important;
+
+  --primary-very-low-rgb: 29, 27, 30 !important;
+  --primary-low-rgb: 42, 40, 42 !important;
+  --primary-low-mid-rgb: 74, 72, 73 !important;
+  --primary-medium-rgb: 154, 152, 153 !important;
+  --primary-medium-high-rgb: 184, 182, 183 !important;
+  --primary-high-rgb: 210, 208, 209 !important;
+  --primary-very-high-rgb: 236, 235, 236 !important;
+
+  // Newer Discourse numeric scale (used by category descriptions, post meta,
+  // tag labels, sidebar text in recent builds). Override these too so nothing
+  // slips through to the warm-derived defaults.
+  --primary-50: #1a181a !important;
+  --primary-100: #242224 !important;
+  --primary-200: #353335 !important;
+  --primary-300: #4a4849 !important;
+  --primary-400: #6e6c6d !important;
+  --primary-500: #8c8a8b !important;
+  --primary-600: #a4a2a3 !important;
+  --primary-700: #c0bebf !important;
+  --primary-800: #d8d6d7 !important;
+  --primary-900: #ecebec !important;
+}
+
+// Belt-and-suspenders: explicitly pin description / muted-text colors in the
+// places that were rendering warm in your screenshots. These selectors win
+// over component CSS without needing to track which variable each uses.
+.category-list .category-description,
+.category-boxes .category-box .description,
+.category-boxes-with-topics .category-box .description,
+.subcategories-with-featured-topics .category-box .description,
+.subcategory-list .subcategory-box .description,
+.category-text-description,
+.cat-box-content .description,
+.category-list .category-name + p {
+  color: #b8b6b7 !important;
+}
+
 // custom search banner customizations
 .custom-search-banner-wrap .search-menu .search-input {
   // OLD 
